@@ -70,10 +70,10 @@ public class MinCut implements GraphCharacteristic {
             Map<UUID, UUID> way = new HashMap<>();
             graph.getVertices().keySet().forEach(key -> way.put(key, null));
             Set<UUID> visitedVertex = new HashSet<>();
+            visitedVertex.add(start);
 
             while (!queue.isEmpty()) {
                 UUID vertex = queue.poll();
-                visitedVertex.add(vertex);
 
                 if (vertex.equals(end)) {
                     no_way = false;
@@ -84,6 +84,7 @@ public class MinCut implements GraphCharacteristic {
                 for (UUID neighbor : adjacencyList.get(vertex)) {
                     if (!visitedVertex.contains(neighbor)) {
                         way.put(neighbor, vertex);
+                        visitedVertex.add(neighbor);
                         queue.offer(neighbor);
                     }
                 }
